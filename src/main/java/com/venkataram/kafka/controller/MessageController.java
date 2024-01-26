@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.venkataram.kafka.producer.KafkaProducer;
+import com.venkataram.kafka.payload.Student;
+import com.venkataram.kafka.producer.JsonKafkaProducer;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MessageController {
 	
-	private final KafkaProducer kafkaProducer;
+	private final JsonKafkaProducer jsonKafkaProducer;
 	
 	@PostMapping
-	public ResponseEntity<String> sendMessage(@RequestBody String message){
-		kafkaProducer.sendMessage(message);
-		return ResponseEntity.ok("Message queued successfully");
+	public ResponseEntity<String> sendJsonMessage(@RequestBody Student student){
+		jsonKafkaProducer.sendMessage(student);
+		return ResponseEntity.ok("Json Message queued successfully");
 	}
 
 }
